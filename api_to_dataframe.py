@@ -8,10 +8,9 @@ cg = CoinGeckoAPI()
 bitcoin_data = cg.get_coin_market_chart_by_id(id='bitcoin', vs_currency='usd', days=30)
 
 # # Create a DataFrame from the prices
-prices = pd.DataFrame(bitcoin_data['prices'], columns=['timestamp', 'price'])
+prices = pd.DataFrame(bitcoin_data['prices'], columns=['timestamp', 'Price'])
 # Convert the timestamp to a readable date format
-prices['date'] = prices['timestamp'].apply(lambda x: datetime.fromtimestamp(x / 1000).strftime('%Y-%m-%d %H:%M:%S'))
-
+prices['Date'] = pd.to_datetime(prices['timestamp'], unit='ms')
 print(prices)
 
 # # Drop the timestamp column
